@@ -30,7 +30,7 @@ themeBtn.addEventListener("click", () => {
   }
 });
 let countiesData = [];
-fetch("data.json")
+fetch("./data.json")
   .then((res) => res.json())
   .then((data) => {
     countiesData = data;
@@ -122,7 +122,7 @@ selectItem.addEventListener("change", () => {
 });
 
 function fetchData() {
-  fetch("data.json")
+  fetch("./data.json")
     .then((res) => res.json())
     .then((data) => {
       const counties = data.map((item) => {
@@ -147,7 +147,6 @@ fetchData();
 
 countries.addEventListener("click", (e) => {
   const countryBox = e.target.closest(".country");
-  console.log(countryBox);
 
   const countryName = countryBox.querySelector("h3").textContent;
   // احفظ الاسم أو البيانات كلها في localStorage
