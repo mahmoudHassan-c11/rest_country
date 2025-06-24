@@ -37,9 +37,12 @@ fetch("./data.json")
   });
 // Filter Countries with Name
 searchIcon.addEventListener("click", (e) => {
-  console.log(searchInput.value);
   const countrySearch = countiesData.filter((item) => {
-    return item.name.toLowerCase().includes(searchInput.value.trim());
+    return (
+      console.log(searchInput.value.trim()),
+      item.name.toLowerCase().includes(searchInput.value.trim()) ||
+        item.name.includes(searchInput.value.trim())
+    );
   });
   const counties = countrySearch.map((item) => {
     return `
@@ -59,7 +62,10 @@ searchIcon.addEventListener("click", (e) => {
 });
 searchInput.addEventListener("input", (e) => {
   const countrySearch = countiesData.filter((item) => {
-    return item.name.toLowerCase().includes(searchInput.value.trim());
+    return (
+      item.name.toLowerCase().includes(searchInput.value.trim()) ||
+      item.name.includes(searchInput.value.trim())
+    );
   });
   const counties = countrySearch.map((item) => {
     return `
@@ -79,7 +85,10 @@ searchInput.addEventListener("input", (e) => {
 searchInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     const countrySearch = countiesData.filter((item) => {
-      return item.name.toLowerCase().includes(searchInput.value.trim());
+      return (
+        item.name.toLowerCase().includes(searchInput.value.trim()) ||
+        item.name.includes(searchInput.value.trim())
+      );
     });
     const counties = countrySearch.map((item) => {
       return `
