@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <title>Document</title>
+  </head>
+  <body class="details">
+    <header>
+      <div class="header container">
+        <h1>where in the world?</h1>
+        <div class="theme-button">
+          <i class="fas fa-moon"></i>
+          <p>Dark Mode</p>
+        </div>
+    </header>
+
+    <div class="container">
+      <button class="back"> <i class="fas fa-arrow-left"></i> Back</button>
+
+      <div id="details">
+    </div>
+        
+  </div>
+    <script>
+      const themeBtn = document.querySelector(".theme-button");
+      const themeText = document.querySelector(".theme-button p");
+      const btn = document.querySelector(".back");
+      const currentTheme = localStorage.getItem("theme");
+
+      if (currentTheme) {
+        if (currentTheme === "dark") {
+          document.body.classList.add("theme");
+          themeText.textContent = "Light Mode";
+        } else {
+          document.body.classList.remove("theme");
+          themeText.textContent = "Dark Mode";
+        }
+      } else {
+        console.log("no");
+      }
+      themeBtn.addEventListener("click", () => {
+        if (themeText.textContent === "Dark Mode") {
+          document.body.classList.add("theme");
+          localStorage.setItem("theme", "dark");
+          themeText.textContent = "Light Mode";
+        } else {
+          document.body.classList.remove("theme");
+          themeText.textContent = "Dark Mode";
+          localStorage.setItem("theme", "light");
+        }
+      });
+
+      btn.addEventListener("click", ()=> {
+        window.location.href = 'index.html'
+      })
+
+      let countryName = sessionStorage.getItem("counteryName");
+      console.log(countryName);
+      
+      fetch("data.json")
+        .then((res) => res.json())
+        .then((data) => {
+          let country = data.find((item) => 
+          item.name && item.name.toLowerCase() === countryName.toLowerCase()
+        );
+          if (country) {
+            document.querySelector("#details").innerHTML = `
+            <div class="image">
+                <img src="${country.flags.png}" />
+            </div>
+            <div class="info">
+              <h3>${country.name}</h3>
+              <div class="info-details">
+                <ul>
+                  <li>Native Name: <span>${country.nativeName} </span></li>
+                  <li>Populatin: <span>${country.population} </span></li>
+                  <li>Region: <span>${country.region} </span></li>
+                  <li>Sub Region: <span>${country.subregion} </span></li>
+                  <li>Capital: <span>${country.capital} </span></li>
+                </ul>
+                <ul>
+                  <li>Top Level Domain: <span>${country.topLevelDomain} </span></li>
+                  <li>Currencies: <span>${country.currencies[0]["name"]} </span></li>
+                  <li>Languages:  <span>${ country.languages.map((item) => {return " " + item.name})} </span></li>
+                </ul>
+              </div>
+              <div class="border-countries">Border Countries: ${
+                country.borders.map((code) => {
+                  let match = data.find(c => c.alpha3Code === code)
+                 return `<span>${match ? match.name : code}</span>`
+                }).join("")
+                  } </country.borders.map></div>
+            </div>
+          </div>
+            `
+          }
+        });
+    </script>
+  </body>
+</html>
