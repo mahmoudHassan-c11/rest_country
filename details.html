@@ -66,8 +66,8 @@
         window.location.href = 'index.html'
       })
 
-      let countryName = sessionStorage.getItem("counteryName");
-      console.log(countryName);
+      let countryName = localStorage.getItem("counteryName");
+      
       
       fetch("data.json")
         .then((res) => res.json())
@@ -97,12 +97,12 @@
                 </ul>
               </div>
               <div class="border-countries">Border Countries: ${
-                country.borders.map((code) => {
+                country.borders ? `${country.borders.map((code) => {
                   let match = data.find(c => c.alpha3Code === code)
                  return `<span>${match ? match.name : code}</span>`
                 }).join("")
-                  } </country.borders.map></div>
-            </div>
+                    } }` : "Not Found Border Countries" } </div>
+              </div>
           </div>
             `
           }

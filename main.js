@@ -147,9 +147,11 @@ fetchData();
 
 countries.addEventListener("click", (e) => {
   const countryBox = e.target.closest(".country");
+  console.log(countryBox);
+
   const countryName = countryBox.querySelector("h3").textContent;
   // احفظ الاسم أو البيانات كلها في localStorage
-  sessionStorage.setItem("counteryName", countryName);
+  localStorage.setItem("counteryName", countryName);
 
   // روح للصفحة الجديدة
   window.location.href = "details.html";
